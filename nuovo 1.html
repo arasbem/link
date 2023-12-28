@@ -13,8 +13,7 @@
 
 <script>
     // Imposta il percorso della cartella su GitHub
-    var githubFolderUrl = 'https://github.com/arasbem/link/tree/main/FILE;
-
+    var githubFolderUrl = 'https://github.com/arasbem/link/tree/main/FILE?ref=main';
 
     // Funzione per ottenere il contenuto della cartella da GitHub API
     function getGitHubContents(url) {
@@ -31,7 +30,7 @@
             if (item.type === 'file') {
                 var listItem = document.createElement('li');
                 var downloadLink = document.createElement('a');
-                downloadLink.href = githubFolderUrl + '/' + item.name;
+                downloadLink.href = item.download_url;
                 downloadLink.textContent = item.name;
                 listItem.appendChild(downloadLink);
                 fileList.appendChild(listItem);
