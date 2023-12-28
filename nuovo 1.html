@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File su GitHub</title>
+</head>
+<body>
+
+<h1>File su GitHub</h1>
+
+<ul id="fileList"></ul>
+
+<script>
+    // Imposta il percorso della cartella su GitHub
+    var githubFolderUrl = 'https://github.com/tuo-username/tuo-repo/tree/branch/nome-cartella';
+
+    // Funzione per ottenere il contenuto della cartella da GitHub API
+    function getGitHubContents(url) {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => displayFileList(data));
+    }
+
+    // Funzione per visualizzare l'elenco dei file sulla pagina
+    function displayFileList(data) {
+        var fileList = document.getElementById('fileList');
+
+        data.forEach(item => {
+            if (item.type === 'file') {
+                var listItem = document.createElement('li');
+                var downloadLink = document.createElement('a');
+                downloadLink.href = githubFolderUrl + '/' + item.name;
+                downloadLink.textContent = item.name;
+                listItem.appendChild(downloadLink);
+                fileList.appendChild(listItem);
+            }
+        });
+    }
+
+    // Ottieni il contenuto della cartella al caricamento della pagina
+    getGitHubContents(githubFolderUrl);
+</script>
+
+</body>
+</html>
